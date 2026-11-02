@@ -3,6 +3,16 @@
 把 DeepSeek Harness 每轮模型请求里那些**冗长但偶尔才用得上**的提示词段，折叠成一行索引；
 原文留在插件内存里，模型（或你）确实需要细节时再按名字取回。
 
+## 安装
+
+这是一个 Harness 的 bundle 插件，安装方式和其他本地 bundle 一样：
+
+1. 把仓库克隆/拷贝到本地任意目录（不要放进 profile 的 `node_modules`）；
+2. 在 Harness 里用 `plugin_manager` 的 `install_bundle`，target 填该目录的绝对路径；
+3. 安装后重启 Harness（插件没有热重载）。
+
+装好后默认 `enabled: false`，只记账、不改文本；先跑一次 `context_ledger` 看清代价，再用 `context_config` 打开。卸载用 `plugin_manager` 的 `remove_bundle`，或用 `set_plugin` 关掉。
+
 ## 它解决什么
 
 Harness 的常驻上下文由三部分组成：
