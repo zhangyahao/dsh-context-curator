@@ -1,0 +1,8 @@
+- insert:
+    - id: context-curator
+      name: dsh-context-curator
+      config:
+        enabled: false
+        minChars: 700
+        foldSkillsCatalog: true
+        skillDescriptionMaxChars: 110

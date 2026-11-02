@@ -1,0 +1,39 @@
+{
+  "name": "dsh-context-curator",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Fold long system-prompt sections and the skill catalog into one-line indexes; load the full text only on demand.",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "cordis",
+    "context",
+    "token",
+    "prompt",
+    "skill"
+  ],
+  "license": "MIT",
+  "exports": {
+    ".": "./index.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml",
+    "locale/en.json",
+    "locale/zh.json",
+    "icon.svg",
+    "README.md"
+  ],
+  "dsh": {
+    "id": "context-curator",
+    "name": "Context Curator",
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

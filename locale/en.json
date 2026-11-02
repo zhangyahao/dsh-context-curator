@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Context Curator",
+    "description": "Folds long system-prompt sections and the skill catalog into one-line indexes, and loads the full text back only when a task needs it."
+  }
+}
