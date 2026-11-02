@@ -79,8 +79,13 @@ function stateFile() {
   return join(dataRoot(), 'context-curator.json');
 }
 
-function loadState() {
+function loadState(config = {}) {
   const state = { ...DEFAULTS, protect: [...DEFAULTS.protect] };
+  // patch 里的 config 只是「首次安装时的默认值」：持久化文件存在时以文件为准。
+  // 否则每次启动都会被 bundle patch 里的 enabled: false 覆盖掉运行时用 context_config 打开的状态。
+  for (const field of Object.keys(DEFAULTS)) {
+    if (config[field] !== undefined) state[field] = config[field];
+  }
   try {
     const file = stateFile();
     if (!existsSync(file)) return state;
@@ -208,7 +213,7 @@ function foldLine(sectionName, text) {
 }
 
 export function apply(ctx, config = {}) {
-  const state = loadState();
+  const state = loadState(config);
   // 段名快照：装/更新插件后第一次出现的段会被标成「新」，方便确认它是否已被折叠
   const seen = loadSeen();
   const fresh = new Set();
@@ -218,10 +223,6 @@ export function apply(ctx, config = {}) {
     fresh.add(sectionName);
     saveSeen(seen);
   };
-  // 行内 config 优先（patch 里可以写 enabled: true 直接开）
-  for (const field of Object.keys(DEFAULTS)) {
-    if (config[field] !== undefined) state[field] = config[field];
-  }
 
   const warn = (message) => {
     try {
